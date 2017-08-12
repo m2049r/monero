@@ -653,7 +653,7 @@ struct WalletManager
      * \param wallet        previously opened / created wallet instance
      * \return              None
      */
-    virtual bool closeWallet(Wallet *wallet) = 0;
+    virtual bool closeWallet(Wallet *wallet, bool store) = 0;
 
     /*
      * ! checks if wallet with the given name already exists
