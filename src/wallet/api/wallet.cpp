@@ -391,10 +391,20 @@ bool WalletImpl::createWatchOnly(const std::string &path, const std::string &pas
 }
 
 bool WalletImpl::recoverFromKeys(const std::string &path,
-                                const std::string &language,
-                                const std::string &address_string,
-                                const std::string &viewkey_string,
-                                const std::string &spendkey_string)
+                                 const std::string &language,
+                                 const std::string &address_string,
+                                 const std::string &viewkey_string,
+                                 const std::string &spendkey_string)
+{
+    return recoverWithKeys(path, "", language, address_string, viewkey_string, spendkey_string);
+}
+
+bool WalletImpl::recoverWithKeys(const std::string &path,
+                                 const std::string &password,
+                                 const std::string &language,
+                                 const std::string &address_string,
+                                 const std::string &viewkey_string,
+                                 const std::string &spendkey_string)
 {
     cryptonote::account_public_address address;
     bool has_payment_id;
@@ -464,12 +474,12 @@ bool WalletImpl::recoverFromKeys(const std::string &path,
     try
     {
         if (has_spendkey) {
-            m_wallet->generate(path, "", address, spendkey, viewkey);
+            m_wallet->generate(path, password, address, spendkey, viewkey);
             setSeedLanguage(language);
             LOG_PRINT_L1("Generated new wallet from keys with seed language: " + language);
         }
         else {
-            m_wallet->generate(path, "", address, viewkey);
+            m_wallet->generate(path, password, address, viewkey);
             LOG_PRINT_L1("Generated new view only wallet from keys");
         }
         
@@ -510,6 +520,11 @@ bool WalletImpl::open(const std::string &path, const std::string &password)
 
 bool WalletImpl::recover(const std::string &path, const std::string &seed)
 {
+    return recover(path, "", seed);
+}
+
+bool WalletImpl::recover(const std::string &path, const std::string &password, const std::string &seed)
+{
     clearStatus();
     m_errorString.clear();
     if (seed.empty()) {
@@ -530,7 +545,7 @@ bool WalletImpl::recover(const std::string &path, const std::string &seed)
 
     try {
         m_wallet->set_seed_language(old_language);
-        m_wallet->generate(path, "", recovery_key, true, false);
+        m_wallet->generate(path, password, recovery_key, true, false);
 
     } catch (const std::exception &e) {
         m_status = Status_Critical;

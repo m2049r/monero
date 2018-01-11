@@ -40,14 +40,32 @@ public:
     Wallet * createWallet(const std::string &path, const std::string &password,
                           const std::string &language, bool testnet);
     Wallet * openWallet(const std::string &path, const std::string &password, bool testnet);
-    virtual Wallet * recoveryWallet(const std::string &path, const std::string &memo, bool testnet, uint64_t restoreHeight);
+    virtual Wallet * recoveryWallet(const std::string &path,
+                                       const std::string &password,
+                                       const std::string &memo,
+                                       bool testnet,
+                                       uint64_t restoreHeight);
+    virtual Wallet * createWalletWithKeys(const std::string &path, 
+                                             const std::string &password,
+                                             const std::string &language,
+                                             bool testnet, 
+                                             uint64_t restoreHeight,
+                                             const std::string &addressString,
+                                             const std::string &viewKeyString,
+                                             const std::string &spendKeyString = "");
+    // next two methods are deprecated - use the above version which allow setting of a password
+    virtual Wallet * recoveryWallet(const std::string &path,
+                                       const std::string &memo,
+                                       bool testnet,
+                                       uint64_t restoreHeight);
+    // deprecated: use createWalletWithKeys instead
     virtual Wallet * createWalletFromKeys(const std::string &path, 
-                                                    const std::string &language,
-                                                    bool testnet, 
-                                                    uint64_t restoreHeight,
-                                                    const std::string &addressString,
-                                                    const std::string &viewKeyString,
-                                                    const std::string &spendKeyString = "");
+                                             const std::string &language,
+                                             bool testnet, 
+                                             uint64_t restoreHeight,
+                                             const std::string &addressString,
+                                             const std::string &viewKeyString,
+                                             const std::string &spendKeyString = "");
     virtual bool closeWallet(Wallet *wallet, bool store = true);
     bool walletExists(const std::string &path);
     bool verifyWalletPassword(const std::string &keys_file_name, const std::string &password, bool watch_only) const;
