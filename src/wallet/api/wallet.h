@@ -45,6 +45,7 @@ class TransactionHistoryImpl;
 class PendingTransactionImpl;
 class UnsignedTransactionImpl;
 class AddressBookImpl;
+class CoinsImpl;
 class SubaddressImpl;
 class SubaddressAccountImpl;
 struct Wallet2CallbackImpl;
@@ -176,6 +177,7 @@ public:
                                             PendingTransaction::Priority priority) const override;
     virtual TransactionHistory * history() override;
     virtual AddressBook * addressBook() override;
+    virtual Coins * coins() override;
     virtual Subaddress * subaddress() override;
     virtual SubaddressAccount * subaddressAccount() override;
     virtual void setListener(WalletListener * l) override;
@@ -246,6 +248,7 @@ private:
     friend class TransactionHistoryImpl;
     friend struct Wallet2CallbackImpl;
     friend class AddressBookImpl;
+    friend class CoinsImpl;
     friend class SubaddressImpl;
     friend class SubaddressAccountImpl;
 
@@ -257,6 +260,7 @@ private:
     std::unique_ptr<TransactionHistoryImpl> m_history;
     std::unique_ptr<Wallet2CallbackImpl> m_wallet2Callback;
     std::unique_ptr<AddressBookImpl>  m_addressBook;
+    std::unique_ptr<CoinsImpl> m_coins;
     std::unique_ptr<SubaddressImpl>  m_subaddress;
     std::unique_ptr<SubaddressAccountImpl>  m_subaddressAccount;
 
