@@ -29,6 +29,9 @@
 
 #include "device.hpp"
 #include "device_default.hpp"
+#ifdef WITH_DEVICE_SIDEKICK
+#include "device_sidekick.hpp"
+#endif
 #ifdef WITH_DEVICE_LEDGER
 #include "device_ledger.hpp"
 #endif
@@ -57,6 +60,9 @@ namespace hw {
 
     device_registry::device_registry(){
         hw::core::register_all(registry);
+        #ifdef WITH_DEVICE_SIDEKICK
+        hw::sidekick::register_all(registry);
+        #endif
         #ifdef WITH_DEVICE_LEDGER
         hw::ledger::register_all(registry);
         #endif

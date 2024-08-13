@@ -34,10 +34,10 @@
 #include <string>
 #include "device.hpp"
 #include "log.hpp"
-#ifndef HAVE_MONERUJO
-#include "device_io_hid.hpp"
-#else
+#ifdef HAVE_MONERUJO
 #include "device_io_monerujo.hpp"
+#else
+#include "device_io_hid.hpp"
 #endif
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/recursive_mutex.hpp>
