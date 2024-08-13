@@ -599,8 +599,8 @@ if (WIN32)
   list(APPEND OPENSSL_LIBRARIES ws2_32 crypt32)
 endif()
 
-option(MONERUJO_HIDAPI "HIDAPI is handled by Monerujo" OFF)
-if(NOT MONERUJO_HIDAPI)
+option(MONERUJO "Building for Monerujo (Ledger & Sidekick comms handled by Monerujo)" OFF)
+if(NOT MONERUJO)
   find_package(HIDAPI)
 endif()
 

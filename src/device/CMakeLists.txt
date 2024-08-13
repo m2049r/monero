@@ -56,19 +56,22 @@ if(HIDAPI_FOUND)
     )
 endif()
 
-if(MONERUJO_HIDAPI)
+if(MONERUJO)
   if(HIDAPI_FOUND)
-    message(FATAL_ERROR "HIDAPI_FOUND but we want MONERUJO_HIDAPI")
+    message(FATAL_ERROR "HIDAPI_FOUND but we want MONERUJO")
   endif()
   add_definitions(-DHAVE_MONERUJO)
   set(device_sources
     ${device_sources}
     device_ledger.cpp
+    device_sidekick.cpp
     )
   set(device_headers
     ${device_headers}
     device_ledger.hpp
     device_io_monerujo.hpp
+    device_sidekick.hpp
+    device_io_monerujo_bt.hpp
     )
 endif()
 
