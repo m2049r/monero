@@ -1265,3 +1265,5 @@ if (iwyu_tool_path AND PYTHONINTERP_FOUND)
     VERBATIM
   )
 endif()
+
+option(WITH_SIDEKICK "Build Sidekick Device" OFF)

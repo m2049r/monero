@@ -56,6 +56,17 @@ if(HIDAPI_FOUND)
     )
 endif()
 
+if(WITH_SIDEKICK)
+  set(device_sources
+    ${device_sources}
+    device_sidekick.cpp
+    )
+  set(device_headers
+    ${device_headers}
+    device_sidekick.hpp
+    )
+endif()
+
 set(device_private_headers)
 
 
