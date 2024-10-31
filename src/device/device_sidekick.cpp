@@ -1,21 +1,21 @@
 // Copyright (c) 2017-2020, The Monero Project
-// 
+//
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
-// 
+//
 // 1. Redistributions of source code must retain the above copyright notice, this list of
 //    conditions and the following disclaimer.
-// 
+//
 // 2. Redistributions in binary form must reproduce the above copyright notice, this list
 //    of conditions and the following disclaimer in the documentation and/or other
 //    materials provided with the distribution.
-// 
+//
 // 3. Neither the name of the copyright holder nor the names of its contributors may be
 //    used to endorse or promote products derived from this software without specific
 //    prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
 // EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -190,7 +190,7 @@ namespace hw {
                 CHECK_AND_ASSERT_THROW_MES(cmd.res.sig_mode == mode, "mode was not set on device");
                 break;
             }
-            case TRANSACTION_PARSE: 
+            case TRANSACTION_PARSE:
             case NONE:
                 break;
             default:
@@ -203,8 +203,8 @@ namespace hw {
 
         /* ======================================================================= */
         /*  LOCKER                                                                 */
-        /* ======================================================================= */ 
-        
+        /* ======================================================================= */
+
         //automatic lock one more level on device ensuring the current thread is allowed to use it
         #define AUTO_LOCK_CMD() \
         /* lock both mutexes without deadlock*/ \
@@ -246,7 +246,7 @@ namespace hw {
         // keys are ignored - we use our own on the device
         bool device_sidekick::generate_chacha_key(const cryptonote::account_keys &keys, crypto::chacha_key &key, uint64_t kdf_rounds) {
             LOG_PRINT_L3(">>generate_chacha_key " <<keys.m_view_secret_key<<keys.m_spend_secret_key<<" "<<kdf_rounds);
-            // CALL (kdf_rounds) => key            
+            // CALL (kdf_rounds) => key
             GenerateChachaKeyCommand cmd;
             cmd.req.kdf_rounds = kdf_rounds;
             cmd.call();
@@ -471,7 +471,7 @@ namespace hw {
         bool device_sidekick::conceal_derivation(crypto::key_derivation &derivation, const crypto::public_key &tx_pub_key, const std::vector<crypto::public_key> &additional_tx_pub_keys, const crypto::key_derivation &main_derivation, const std::vector<crypto::key_derivation> &additional_derivations) {
             LOG_PRINT_L3(">>conceal_derivation " << tx_pub_key);
             const crypto::public_key *pkey = NULL;
-            if (derivation == main_derivation) {        
+            if (derivation == main_derivation) {
                 pkey = &tx_pub_key;
                 LOG_PRINT_L3("conceal derivation with main tx pub key");
             } else {
@@ -579,8 +579,8 @@ namespace hw {
         /*                               TRANSACTION                               */
         /* ======================================================================= */
 
-        void device_sidekick::generate_tx_proof(const crypto::hash &prefix_hash, 
-                                               const crypto::public_key &R, const crypto::public_key &A, const boost::optional<crypto::public_key> &B, const crypto::public_key &D, const crypto::secret_key &r, 
+        void device_sidekick::generate_tx_proof(const crypto::hash &prefix_hash,
+                                               const crypto::public_key &R, const crypto::public_key &A, const boost::optional<crypto::public_key> &B, const crypto::public_key &D, const crypto::secret_key &r,
                                                crypto::signature &sig) {
             LOG_PRINT_L3(">>generate_tx_proof " << prefix_hash
                                  << R
